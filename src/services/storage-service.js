@@ -283,7 +283,7 @@ export class StorageService {
 
   /**
    * Adds an interaction event to the active session
-   * @param {InteractionEvent} event - Event to add
+   * @param {InteractionEvent|Object} event - Event to add (InteractionEvent instance or plain object)
    * @returns {Promise<void>}
    * @throws {NoActiveSessionError} if no session is recording
    * @throws {ValidationError} if event object is invalid
@@ -292,7 +292,15 @@ export class StorageService {
    */
   async addEvent(event) {
     try {
-      if (!(event instanceof InteractionEvent)) {
+      // Convert plain object to InteractionEvent if needed
+      let eventToAdd;
+      if (event instanceof InteractionEvent) {
+        eventToAdd = event.toJSON();
+      } else if (typeof event === 'object' && event !== null) {
+        // Plain object - convert to InteractionEvent first to validate
+        const interactionEvent = InteractionEvent.fromJSON(event);
+        eventToAdd = interactionEvent.toJSON();
+      } else {
         throw new ValidationError('Invalid event object');
       }
 
@@ -313,7 +321,7 @@ export class StorageService {
       }
 
       // Add event to session
-      activeSession.addEvent(event.toJSON());
+      activeSession.addEvent(eventToAdd);
 
       // Update session
       await chrome.storage.local.set({

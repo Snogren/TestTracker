@@ -113,21 +113,16 @@ export class ExportService {
    */
   async downloadJSON(filename, content) {
     try {
-      // Create blob
-      const blob = new Blob([content], { type: 'application/json' });
-      
-      // Generate object URL
-      const url = URL.createObjectURL(blob);
+      // Service workers cannot use URL.createObjectURL with Blobs
+      // Instead, use a data URL which is supported in service worker context
+      const dataUrl = 'data:application/json;charset=utf-8,' + encodeURIComponent(content);
 
       // Trigger download using Chrome downloads API
       await chrome.downloads.download({
-        url: url,
+        url: dataUrl,
         filename: filename,
         saveAs: true  // Prompt user for location (FR-027)
       });
-
-      // Clean up object URL after a delay
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
     } catch (error) {
       throw new ExportError(`Failed to download JSON: ${error.message}`);
     }

@@ -241,11 +241,14 @@ async function handleAddEvent(eventData) {
     // Event is already processed by content script, just add it
     await storageService.addEvent(eventData);
 
-    // Notify sidepanel to refresh
+    // Get updated session after adding event
+    const updatedSession = await storageService.getActiveSession();
+
+    // Notify sidepanel and other tabs to refresh
     await notifyAllTabs({
       type: 'EVENT_ADDED',
       sessionId: activeSession.sessionId,
-      eventCount: activeSession.events.length + 1
+      eventCount: updatedSession ? updatedSession.metadata.totalEvents : 0
     });
 
     return { success: true };
