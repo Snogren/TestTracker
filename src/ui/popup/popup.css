@@ -1,0 +1,157 @@
+/* Popup Styles */
+
+body {
+  width: 320px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.popup-container {
+  padding: 16px;
+}
+
+h1 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status.stopped {
+  background-color: #e0e0e0;
+  color: #666;
+}
+
+.status.stopped .status-dot {
+  background-color: #999;
+}
+
+.status.recording {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status.recording .status-dot {
+  background-color: #c62828;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.status.paused {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status.paused .status-dot {
+  background-color: #ef6c00;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: #0066cc;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+
+.btn-secondary {
+  background-color: #ef6c00;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #d65a00;
+}
+
+.btn-danger {
+  background-color: #c62828;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #a21818;
+}
+
+.btn-link {
+  background-color: transparent;
+  color: #0066cc;
+  text-decoration: underline;
+  padding: 8px;
+}
+
+.btn-link:hover {
+  background-color: #f0f0f0;
+}
+
+.info {
+  padding: 8px 12px;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+#event-count-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+}

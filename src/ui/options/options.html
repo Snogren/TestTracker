@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Tracker Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <h1>DOM Interaction Recorder - Settings</h1>
+
+    <section class="settings-section">
+      <h2>Event Types</h2>
+      <p class="description">Select which interaction types to capture during recording:</p>
+      
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="event-click" value="click" checked>
+          <span>Click</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-dblclick" value="dblclick">
+          <span>Double-click</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-keypress" value="keypress" checked>
+          <span>Keypress</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-hover" value="hover">
+          <span>Hover</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-scroll" value="scroll" checked>
+          <span>Scroll</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-focus" value="focus" checked>
+          <span>Focus</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-blur" value="blur" checked>
+          <span>Blur</span>
+        </label>
+        <label>
+          <input type="checkbox" id="event-navigation" value="navigation" checked>
+          <span>Navigation</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <h2>DOM Context Settings</h2>
+      
+      <div class="form-group">
+        <label for="max-dom-depth">
+          Maximum Parent Levels (1-10):
+          <span id="dom-depth-value">5</span>
+        </label>
+        <input type="range" id="max-dom-depth" min="1" max="10" value="5">
+      </div>
+
+      <div class="form-group">
+        <label for="max-siblings">
+          Maximum Siblings Each Direction (0-5):
+          <span id="siblings-value">2</span>
+        </label>
+        <input type="range" id="max-siblings" min="0" max="5" value="2">
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="save-btn" class="btn btn-primary">Save Settings</button>
+      <button id="reset-btn" class="btn btn-secondary">Reset to Defaults</button>
+    </div>
+
+    <div id="status-message" class="status-message"></div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
