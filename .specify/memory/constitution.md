@@ -33,8 +33,6 @@ New features require spec files before implementation. Specs prevent scope creep
 
 **Spec-First Development**: Write spec files before implementing features. Specs guide implementation and prevent scope creep.
 
-**Vibe-Compatible Process**: No rigid upfront design. Allow architecture to emerge naturally through development and refactoring.
-
 **Solo Development**: Single developer workflow. No formal code review process required.
 
 ## Governance
