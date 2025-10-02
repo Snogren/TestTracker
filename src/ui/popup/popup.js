@@ -26,8 +26,16 @@ async function initialize() {
   viewLogsBtn.addEventListener('click', handleViewLogs);
   settingsBtn.addEventListener('click', handleSettings);
   
-  // Listen for storage changes to update event count
+  // Listen for storage changes to update event count in real-time
   chrome.storage.onChanged.addListener(handleStorageChange);
+  
+  // Listen for messages from background to update UI in real-time
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'EVENT_ADDED') {
+      updateUI();
+    }
+    sendResponse({ success: true });
+  });
 }
 
 // Update UI based on current session status

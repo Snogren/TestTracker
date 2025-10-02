@@ -297,8 +297,10 @@ async function captureEvent(eventType, element, domEvent, textInput = null) {
       textInput: textInput
     };
 
-    // Show annotation UI and wait for user decision
-    const annotation = await showAnnotationUI(rawEvent);
+    // Show annotation UI immediately and wait for user decision
+    // Use setTimeout to show UI in next tick so it appears instantly
+    const annotationPromise = showAnnotationUI(rawEvent);
+    const annotation = await annotationPromise;
     
     if (annotation === null) {
       // User rejected the event
@@ -329,54 +331,57 @@ async function captureEvent(eventType, element, domEvent, textInput = null) {
 
 async function showAnnotationUI(rawEvent) {
   return new Promise((resolve, reject) => {
-    // Create accept/reject overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'dom-tracker-annotation-overlay';
-    overlay.innerHTML = `
-      <div class="dom-tracker-accept-reject">
-        <p>Capture this interaction?</p>
-        <button class="dom-tracker-accept" autofocus>Accept</button>
-        <button class="dom-tracker-reject">Reject</button>
-      </div>
-    `;
-    
-    document.body.appendChild(overlay);
-
-    const acceptBtn = overlay.querySelector('.dom-tracker-accept');
-    const rejectBtn = overlay.querySelector('.dom-tracker-reject');
-
-    // Auto-focus accept button
-    acceptBtn.focus();
-
-    // Handle accept
-    acceptBtn.addEventListener('click', async () => {
-      document.body.removeChild(overlay);
+    // Use setTimeout to ensure UI appears immediately in next event loop tick
+    setTimeout(() => {
+      // Create accept/reject overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'dom-tracker-annotation-overlay';
+      overlay.innerHTML = `
+        <div class="dom-tracker-accept-reject">
+          <p>Capture this interaction?</p>
+          <button class="dom-tracker-accept" autofocus>Accept</button>
+          <button class="dom-tracker-reject">Reject</button>
+        </div>
+      `;
       
-      // Show annotation input
-      const annotation = await showAnnotationInput();
-      resolve(annotation);
-    });
+      document.body.appendChild(overlay);
 
-    // Handle reject
-    rejectBtn.addEventListener('click', () => {
-      document.body.removeChild(overlay);
-      resolve(null);
-    });
+      const acceptBtn = overlay.querySelector('.dom-tracker-accept');
+      const rejectBtn = overlay.querySelector('.dom-tracker-reject');
 
-    // Handle keyboard
-    overlay.addEventListener('keydown', async (e) => {
-      if (e.key === 'Enter' && document.activeElement === acceptBtn) {
+      // Auto-focus accept button
+      setTimeout(() => acceptBtn.focus(), 10);
+
+      // Handle accept
+      acceptBtn.addEventListener('click', async () => {
         document.body.removeChild(overlay);
+        
+        // Show annotation input
         const annotation = await showAnnotationInput();
         resolve(annotation);
-      } else if (e.key === 'Enter' && document.activeElement === rejectBtn) {
+      });
+
+      // Handle reject
+      rejectBtn.addEventListener('click', () => {
         document.body.removeChild(overlay);
         resolve(null);
-      } else if (e.key === 'Escape') {
-        document.body.removeChild(overlay);
-        resolve(null);
-      }
-    });
+      });
+
+      // Handle keyboard
+      overlay.addEventListener('keydown', async (e) => {
+        if (e.key === 'Enter' && document.activeElement === acceptBtn) {
+          document.body.removeChild(overlay);
+          const annotation = await showAnnotationInput();
+          resolve(annotation);
+        } else if (e.key === 'Enter' && document.activeElement === rejectBtn) {
+          document.body.removeChild(overlay);
+          resolve(null);
+        } else if (e.key === 'Escape') {
+          document.body.removeChild(overlay);
+          resolve(null);
+        }
+      });
+    }, 0);
   });
 }
 
