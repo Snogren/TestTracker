@@ -1,0 +1,8 @@
+<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" fill="#0066cc" rx="16"/>
+  <circle cx="64" cy="64" r="32" fill="white" opacity="0.3"/>
+  <circle cx="64" cy="64" r="8" fill="#ff0000">
+    <animate attributeName="r" values="8;12;8" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="64" y="100" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" font-weight="bold">TRACKER</text>
+</svg>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <h1>DOM Interaction Recorder</h1>
+    
+    <div id="status-indicator" class="status stopped">
+      <span class="status-dot"></span>
+      <span id="status-text">Stopped</span>
+    </div>
+
+    <div class="controls">
+      <button id="record-btn" class="btn btn-primary">
+        <span>⏺</span> Record
+      </button>
+      <button id="pause-btn" class="btn btn-secondary" disabled>
+        <span>⏸</span> Pause
+      </button>
+      <button id="resume-btn" class="btn btn-secondary" disabled style="display: none;">
+        <span>▶</span> Resume
+      </button>
+      <button id="stop-btn" class="btn btn-danger" disabled>
+        <span>⏹</span> Stop
+      </button>
+    </div>
+
+    <div id="event-count" class="info">
+      Events captured: <span id="event-count-value">0</span>
+    </div>
+
+    <div class="actions">
+      <button id="view-logs-btn" class="btn btn-link">View Logs</button>
+      <button id="settings-btn" class="btn btn-link">Settings</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

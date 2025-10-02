@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Logs</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="sidepanel-container">
+    <div class="header">
+      <h1>Event Logs</h1>
+      <button id="refresh-btn" class="btn-icon" title="Refresh">
+        ↻
+      </button>
+    </div>
+
+    <div id="session-info" class="session-info">
+      <p>Session: <span id="session-id">-</span></p>
+      <p>Status: <span id="session-status">-</span></p>
+      <p>Events: <span id="total-events">0</span></p>
+    </div>
+
+    <div id="events-container" class="events-container">
+      <p class="empty-message">No events captured yet. Start recording to see interaction logs.</p>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

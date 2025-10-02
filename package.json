@@ -1,0 +1,19 @@
+{
+  "name": "dom-tracker-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension for recording user interactions with websites",
+  "scripts": {
+    "lint": "echo 'No automated linting configured (manual testing only per constitution)'",
+    "test": "echo 'Manual testing required - see specs/001-chrome-browser-extension/quickstart.md'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "interaction-recording",
+    "test-automation",
+    "dom-tracking"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
